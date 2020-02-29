@@ -17,21 +17,20 @@ public class ContractService {
 		this.months = months;
 	}
 
-	public void processContract() {
+	public void processContract(OnlinePaymentService onlinePaymentService) {
 		
-		long inicialDate = contract.getContractDate().getDate();
+		long inicialDate = contract.getContractDate().getTime();
 		
-		for(int i = 1; i == months; i++) {
+		for(int i = 1; i <= months; i++) {
 			
-			long dueDateCalculator = (long) (inicialDate + 1000.00 * 60.00 * 60.00 * 24.00 * i);
+			long dueDateCalculator = (long) (inicialDate + ((1000.00 * 60.00 * 60.00 * 24.00) * i));
 			
-			Date dueDate = dueDate.setTime(dueDateCalculator);
+			Date dueDate = new Date(dueDateCalculator);
 			
-			
-			contract.addInstallment(new Installment(dueDate, onlinePaymentService.interest((Double) contract.getContractValue() / months, i);
-			
+			contract.addInstallment(new Installment(dueDate, onlinePaymentService.interest(contract.getContractValue() / months, i)));
 			
 		}
+		
 		
 	}
 	

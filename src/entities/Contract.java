@@ -1,5 +1,6 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ public class Contract {
 	private Date contractDate;
 	private Double contractValue;
 	ArrayList<Installment> installment = new ArrayList<Installment>();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public Contract(Integer contractNumber, Date contractDate, Double contractValue) {
 		
@@ -47,6 +49,17 @@ public class Contract {
 
 	public void addInstallment(Installment installment) {
 		this.installment.add(installment);
+	}
+	
+	public String showInstallments() {
+		String installments = "";
+		
+		for (Installment c : installment) {
+			installments += String.format("" + sdf.format(c.getDueDate()) + " - " + c.getAmount() + "\n","%.2f");
+		}
+		
+		return installments;
+		
 	}
 	
 	
